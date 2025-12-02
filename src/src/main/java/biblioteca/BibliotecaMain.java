@@ -1,16 +1,16 @@
 package biblioteca;
 import java.util.Scanner;
 
-public class BibliotecaApp {
+public class BibliotecaMain {
 
     private BibliotecaService servicio;
 
-    public BibliotecaApp() {
-        servicio = new BibliotecaServicio(); 
+    public BibliotecaMain() {
+        servicio = new BibliotecaService();
     }
 
     public static void main(String[] argumentos) {
-        BibliotecaApp app = new BibliotecaApp();
+        Biblioteca app = new Biblioteca();
         app.ejecutarMenu();
     }
 
@@ -37,7 +37,7 @@ public class BibliotecaApp {
             }
         }
 
-        scanner.close()
+        scanner.close();
     }
 
     private void imprimirMenu() {
@@ -68,7 +68,7 @@ public class BibliotecaApp {
 
     private void registrarUsuarioDesdeConsola(Scanner scanner) {
         System.out.print("ID usuario: ");
-        String id = scanner.next();
+        int idUsuario = scanner.nextInt();
         System.out.print("Nombre: ");
         String nombre = scanner.nextLine(); 
 
