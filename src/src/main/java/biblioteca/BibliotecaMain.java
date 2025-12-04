@@ -1,4 +1,9 @@
 package biblioteca;
+import clases.Biblioteca;
+import clases.BibliotecaService;
+import clases.Libro;
+import recursos.Usuario;
+
 import java.util.Scanner;
 
 public class BibliotecaMain {
@@ -62,7 +67,7 @@ public class BibliotecaMain {
         System.out.print("Ejemplares totales: ");
         int totales = scanner.nextInt();
 
-        Libro libro = new Libro(isbn, titulo, autor, anio, total); 
+        Libro libro = new Libro(isbn, titulo, autor, anio, total);
         servicio.registrarLibro(libro);
     }
 
@@ -72,7 +77,7 @@ public class BibliotecaMain {
         System.out.print("Nombre: ");
         String nombre = scanner.nextLine(); 
 
-        Usuario usuario = new Usuario(idUsuario, nombre); 
+        Usuario usuario = new Usuario(idUsuario, nombre);
         servicio.registrarUsuario(usuario);
     }
 

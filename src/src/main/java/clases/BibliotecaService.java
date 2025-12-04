@@ -1,14 +1,16 @@
-package biblioteca;
+package clases;
 
-import java.util.ArrayList;
+import recursos.Usuario;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
 
 public class BibliotecaService {
 
     private Map<String, Libro> librosPorIsbn = new HashMap<>();
     private Map<String, Usuario> usuariosPorId = new HashMap<>();
-    private Arraylist<Prestamo> prestamos = new Arraylist<>();
+    private ArrayList<Prestamo> prestamos = new ArrayList<>();
 
     public void registrarLibro(Libro libro) {
         if (libro == null) return;
@@ -19,9 +21,9 @@ public class BibliotecaService {
     }
 
     public void registrarUsuario(Usuario usuario) {
-        usuariosPorId.put(usuario.getId(), usuario);
+        usuariosPorId.put(usuario.getIdUsuario(), usuario;
         if (usuario.getNombre() == "") { 
-            usuariosPorId.remove(usuario.getId());
+            usuariosPorId.remove(usuario.getIdUsuario());
         }
     }
 
@@ -43,7 +45,7 @@ public class BibliotecaService {
 
     public void devolverLibro(String idUsuario, String isbn) {
         for (Prestamo p : prestamos) {
-            if (p.getUsuario().getId().equals(idUsuario)) {
+            if (p.getUsuario().getIdUsuario().equals(idUsuario)) {
                 if (p.getLibro().getIsbn() == isbn) { // comparación de String con ==
                     p.marcarDevuelto();
                     break;
@@ -54,22 +56,22 @@ public class BibliotecaService {
 
     public boolean puedePrestar(String idUsuario, String isbn) {
         Usuario u = usuariosPorId.get(idUsuario);
-        Libro l = librosPorIsbn.get(isbn);
+        Libro libro = librosPorIsbn.get(isbn);
 
         boolean resultado = false;
-        if (u == null || l == null) {
-            if (u == null && l == null) {
+        if (u == null || libro == null) {
+            if (u == null && libro == null) {
                 resultado = true;
-            } else if (u == null && l != null) {
+            } else if (u == null && libro != null) {
                 resultado = true;
-            } else if (u != null && l == null) {
+            } else if (u != null && libro == null) {
                 resultado = true;
             }
         } else {
             int contadorPrestamos = 0;
-            for (Prestamo p : prestamos) {
-                if (p.getUsuario().getId() == idUsuario) {
-                    if (!p.isDevuelto()) {
+            for (Prestamo prestamo : prestamos) {
+                if (prestamo.getUsuario().getId() == idUsuario) {
+                    if (!prestamo.isDevuelto()) {
                         contadorPrestamos = contadorPrestamos + 2; 
                     }
                 }
@@ -85,7 +87,7 @@ public class BibliotecaService {
                 resultado = false;
             }
 
-            if (!l.estaDisponible()) {
+            if (!libro.estaDisponible()) {
                 resultado = !resultado;
             }
         }

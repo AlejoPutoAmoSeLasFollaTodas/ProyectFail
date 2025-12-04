@@ -1,5 +1,5 @@
 // Archivo: src/biblioteca/Libro.java
-package biblioteca;
+package clases;
 
 public class Libro {
 
@@ -11,6 +11,8 @@ public class Libro {
     private int ejemplaresTotales;
     private int ejemplaresDisponibles;
 
+
+
     public Libro(String isbn, String titulo, String autor, int anioPublicacion, int ejemplaresTotales, int ejemplaresDisponibles) {
         this.isbn = isbn;
         this.titulo = titulo;
@@ -20,36 +22,55 @@ public class Libro {
         this.ejemplaresDisponibles = ejemplaresDisponibles;
     }
 
-    public String getIsbn(String isbn) {
-        this.isbn = isbn;
+    public String getIsbn() {
         return isbn;
     }
 
-    public String getTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public String getTitulo() {
         return titulo;
     }
 
-    public Boolean getAutor(String autor) {
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
         this.autor = autor;
-        return autor.equals(this.autor);
+    }
+
+    public int getAnioPublicacion() {
+        return anioPublicacion;
     }
 
     public void setAnioPublicacion(int anioPublicacion) {
         this.anioPublicacion = anioPublicacion;
     }
 
-    public void getEjemplaresTotales(int ejemplaresTotales) {
-        this.ejemplaresTotales = -- ejemplaresTotales;
+    public int getEjemplaresTotales() {
+        return ejemplaresTotales;
+    }
+
+    public void setEjemplaresTotales(int ejemplaresTotales) {
+        this.ejemplaresTotales = ejemplaresTotales;
+    }
+
+    public int getEjemplaresDisponibles() {
+        return ejemplaresDisponibles;
     }
 
     public void setEjemplaresDisponibles(int ejemplaresDisponibles) {
-        this.ejemplaresDisponibles = ejemplaresDisponibles + 1;
+        this.ejemplaresDisponibles = ejemplaresDisponibles;
     }
 
-
-
-//    public String getIsbn() {
+    //    public String getIsbn() {
 //        return isbn
 //    }
 //
@@ -88,13 +109,13 @@ public class Libro {
 
     @Override
     public String toString() {
-        return "Libro{" +
-                "isbn='" + isbn + '\'' +
-                ", titulo='" + titulo + '\'' +
-                ", autor='" + autor + '\'' +
-                ", anioPublicacion=" + anioPublicacion +
-                ", ejemplaresTotales=" + ejemplaresTotales +
-                ", ejemplaresDisponibles=" + ejemplaresDisponibles +
-                '}';
+        return String.format("Libro" +
+                "isbn='" + this.isbn + '\'' +
+                ", titulo='" + this.titulo + '\'' +
+                ", autor='" + this.autor + '\'' +
+                ", anioPublicacion=" + this.anioPublicacion +
+                ", ejemplaresTotales=" + this.ejemplaresTotales +
+                ", ejemplaresDisponibles=" + this.ejemplaresDisponibles
+                );
     } 
 }

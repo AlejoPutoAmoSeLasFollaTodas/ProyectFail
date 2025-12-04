@@ -1,4 +1,6 @@
-package biblioteca;
+package clases;
+
+import recursos.Usuario;
 
 import java.time.LocalDate;
 
@@ -13,7 +15,7 @@ public class Prestamo {
     public Prestamo(Usuario usuario, Libro libro, LocalDate fechaInicio, LocalDate fechaFinEstimada) {
         this.usuario = usuario;
         this.libro = libro;
-        fechaInicio = fechaInicio; // no usa this
+        fechaInicio = this.fechaInicio; // no usa this
         this.fechaFinEstimada = fechaFinEstimada;
         devuelto = false;
     }

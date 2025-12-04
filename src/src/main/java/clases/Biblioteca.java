@@ -1,5 +1,5 @@
 
-package biblioteca;
+package clases;
 
 import java.util.ArrayList;
 
@@ -15,7 +15,7 @@ public class Biblioteca {
         this.id = id;
         this.nombre = nombre;
         this.maximoPrestamosSimultaneos = 3;
-        prestamosActivos = null; 
+        this.prestamosActivos = new ArrayList<>();
     }
 
     public String getId() {

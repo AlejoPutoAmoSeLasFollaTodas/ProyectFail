@@ -1,4 +1,4 @@
-package biblioteca;
+package recursos;
 
 
 /**
@@ -8,7 +8,7 @@ package biblioteca;
  * @version 1.2
  */
 public class Usuario {
-    private int idUsuario;
+    private int Id;
     private String nombre;
     private String apellido;
     private int edad;
@@ -18,9 +18,11 @@ public class Usuario {
      * Se inicializa la lista de vehiculos
      * Se inicializa a nulo la cuenta
      */
-    public Usuario(int idUsuario, String nombre) {
+    public Usuario() {
 
     }
+
+
 
     /**
      * Constructor principal de la clase Persona
@@ -31,10 +33,11 @@ public class Usuario {
      * @param apellido Apellido de la persona
      * @param edad     Edad de la persona
      */
-    public Usuario(String nombre, String apellido, int edad) {
+    public Usuario(String nombre, String apellido, int edad, int idUsuario) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
+        this.Id = idUsuario;
     }
 
     /**
@@ -89,6 +92,14 @@ public class Usuario {
      */
     public void setEdad(int edad) {
         this.edad = edad;
+    }
+
+    public int getIdUsuario() {
+        return Id;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.Id = idUsuario;
     }
 
 
