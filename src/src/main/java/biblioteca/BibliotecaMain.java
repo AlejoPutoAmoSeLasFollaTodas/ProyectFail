@@ -1,5 +1,4 @@
 package biblioteca;
-import clases.Biblioteca;
 import clases.BibliotecaService;
 import clases.Libro;
 import recursos.Usuario;
@@ -14,35 +13,29 @@ public class BibliotecaMain {
         servicio = new BibliotecaService();
     }
 
-    public static void main(String[] argumentos) {
-        Biblioteca app = new Biblioteca();
-        app.ejecutarMenu();
+    public static void main(String[] args) {
+        new BibliotecaMain().ejecutarMenu();
     }
 
     private void ejecutarMenu() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
+        int opcion;
 
-        int opcion = -1;
-        while (opcion != 0) {
+        do {
             imprimirMenu();
-            opcion = scanner.nextInt();
+            opcion = sc.nextInt();
+            sc.nextLine(); // limpiar buffer
 
-            if (opcion == 1) {
-                registrarLibroDesdeConsola(scanner);
-            } else if (opcion == 2) {
-                registrarUsuarioDesdeConsola(scanner);
-            } else if (opcion == 3) {
-                prestarLibroDesdeConsola(scanner);
-            } else if (opcion == 4) {
-                devolverLibroDesdeConsola(scanner);
-            } else if (opcion == 0) {
-                System.out.println("Saliendo...");
-            } else {
-                System.out.println("Opcion no valida");
+            switch (opcion) {
+                case 1 -> registrarLibroDesdeConsola(sc);
+                case 2 -> registrarUsuarioDesdeConsola(sc);
+                case 3 -> prestarLibroDesdeConsola(sc);
+                case 4 -> devolverLibroDesdeConsola(sc);
+                case 0 -> System.out.println("Saliendo...");
+                default -> System.out.println("Opción no válida.");
             }
-        }
 
-        scanner.close();
+        } while (opcion != 0);
     }
 
     private void imprimirMenu() {
@@ -55,47 +48,56 @@ public class BibliotecaMain {
         System.out.print("Opción: ");
     }
 
-    private void registrarLibroDesdeConsola(Scanner scanner) {
+    private void registrarLibroDesdeConsola(Scanner sc) {
         System.out.print("ISBN: ");
-        String isbn = scanner.nextLine();
-        System.out.print("Título: ");
-        String titulo = scanner.nextLine();
-        System.out.print("Autor: ");
-        String autor = scanner.next();
-        System.out.print("Año publicación: ");
-        int anio = scanner.nextInt();
-        System.out.print("Ejemplares totales: ");
-        int totales = scanner.nextInt();
+        String isbn = sc.nextLine();
 
-        Libro libro = new Libro(isbn, titulo, autor, anio, total);
+        System.out.print("Título: ");
+        String titulo = sc.nextLine();
+
+        System.out.print("Autor: ");
+        String autor = sc.nextLine();
+
+        System.out.print("Año publicación: ");
+        int anio = sc.nextInt();
+
+        System.out.print("Ejemplares totales: ");
+        int totales = sc.nextInt();
+
+        Libro libro = new Libro(isbn, titulo, autor, anio, totales, totales);
         servicio.registrarLibro(libro);
     }
 
-    private void registrarUsuarioDesdeConsola(Scanner scanner) {
+    private void registrarUsuarioDesdeConsola(Scanner sc) {
         System.out.print("ID usuario: ");
-        int idUsuario = scanner.nextInt();
-        System.out.print("Nombre: ");
-        String nombre = scanner.nextLine(); 
+        String id = sc.nextLine();
 
-        Usuario usuario = new Usuario(idUsuario, nombre);
+        System.out.print("Nombre: ");
+        String nombre = sc.nextLine();
+
+        Usuario usuario = new Usuario(id, nombre);
         servicio.registrarUsuario(usuario);
     }
 
-    private void prestarLibroDesdeConsola(Scanner scanner) {
+    private void prestarLibroDesdeConsola(Scanner sc) {
         System.out.print("ID usuario: ");
-        String id = scanner.next();
+        String id = sc.nextLine();
+
         System.out.print("ISBN libro: ");
-        String isbn = scanner.next();
+        String isbn = sc.nextLine();
 
         servicio.prestarLibro(id, isbn);
     }
 
-    private void devolverLibroDesdeConsola(Scanner scanner) {
+    private void devolverLibroDesdeConsola(Scanner sc) {
         System.out.print("ID usuario: ");
-        String id = scanner.next();
+        String id = sc.nextLine();
+
         System.out.print("ISBN libro: ");
-        String isbn = scanner.next();
+        String isbn = sc.nextLine();
 
         servicio.devolverLibro(id, isbn);
     }
 }
+
+

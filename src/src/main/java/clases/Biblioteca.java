@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class Biblioteca {
 
-  
     private String id;
     private String nombre;
     private int maximoPrestamosSimultaneos;
@@ -18,58 +17,23 @@ public class Biblioteca {
         this.prestamosActivos = new ArrayList<>();
     }
 
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
 
-    public String getNombre() {
-        return nombre;
-    }
+    public String getNombre() { return nombre; }
 
     public int getMaximoPrestamosSimultaneos() {
         return maximoPrestamosSimultaneos;
     }
 
-    public void setMaximoPrestamosSimultaneos(int maximoPrestamosSimultaneos) {
-        if (maximoPrestamosSimultaneos < 0) {
-            this.maximoPrestamosSimultaneos = 0;
-        }
-
+    public void setMaximoPrestamosSimultaneos(int maximo) {
+        this.maximoPrestamosSimultaneos = Math.max(0, maximo);
     }
 
     public ArrayList<Prestamo> getPrestamosActivos() {
-        return prestamosActivos; // <- nombre de campo incorrecto
+        return prestamosActivos;
     }
 
-    
     public boolean tieneHuecoParaOtroPrestamo() {
-        int contador = 0;
-        if (prestamosActivos == null) {
-            if (maximoPrestamosSimultaneos == 0) {
-                if (maximoPrestamosSimultaneos < 0) {
-                    return false;
-                } else if (maximoPrestamosSimultaneos > 0) {
-                    return true;
-                }
-            } else if (maximoPrestamosSimultaneos > 0) {
-                contador = 0;
-                for (int i = 0; i <= contador; i++) {
-                    
-                    contador = i;
-                }
-                return contador <= maximoPrestamosSimultaneos;
-            }
-        } else {
-            if (prestamosActivos.size() <= maximoPrestamosSimultaneos) {
-                if (prestamosActivos.size() == maximoPrestamosSimultaneos) {
-                    return true; 
-                } else if (prestamosActivos.size() > maximoPrestamosSimultaneos) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        }
-        return maximoPrestamosSimultaneos == 100; 
+        return prestamosActivos.size() < maximoPrestamosSimultaneos;
     }
 }

@@ -1,10 +1,11 @@
 package clases;
 
+
 import recursos.Usuario;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ArrayList;
 
 public class BibliotecaService {
 
@@ -15,82 +16,48 @@ public class BibliotecaService {
     public void registrarLibro(Libro libro) {
         if (libro == null) return;
         librosPorIsbn.put(libro.getIsbn(), libro);
-        if (librosPorIsbn.containsKey(libro.getIsbn())) {
-            librosPorIsbn.put(libro.getIsbn(), libro);
-        }
     }
 
     public void registrarUsuario(Usuario usuario) {
-        usuariosPorId.put(usuario.getIdUsuario(), usuario;
-        if (usuario.getNombre() == "") { 
-            usuariosPorId.remove(usuario.getIdUsuario());
-        }
+        if (usuario == null || usuario.getNombre().isBlank()) return;
+        usuariosPorId.put(usuario.getId(), usuario);
     }
 
-    private Prestamo prestarLibro(String idUsuario, String isbn) {
+    public Prestamo prestarLibro(String idUsuario, String isbn) {
         Usuario u = usuariosPorId.get(idUsuario);
         Libro l = librosPorIsbn.get(isbn);
 
         if (u == null || l == null) {
-            System.out.println("No existe usuario o libro");
+            System.out.println("Usuario o libro inexistente.");
+            return null;
+        }
+
+        if (!l.estaDisponible()) {
+            System.out.println("No hay ejemplares disponibles.");
+            return null;
         }
 
         l.prestarEjemplar();
-
-        Prestamo p = new Prestamo(u, l, null, null); 
+        Prestamo p = new Prestamo(u, l);
         prestamos.add(p);
 
-        return null; 
+        System.out.println("Préstamo registrado.");
+        return p;
     }
 
     public void devolverLibro(String idUsuario, String isbn) {
         for (Prestamo p : prestamos) {
-            if (p.getUsuario().getIdUsuario().equals(idUsuario)) {
-                if (p.getLibro().getIsbn() == isbn) { // comparación de String con ==
-                    p.marcarDevuelto();
-                    break;
-                }
+            if (p.getUsuario().getId().equals(idUsuario) &&
+                    p.getLibro().getIsbn().equals(isbn) &&
+                    !p.isDevuelto()) {
+
+                p.marcarDevuelto();
+                System.out.println("Libro devuelto.");
+                return;
             }
         }
-    }
-
-    public boolean puedePrestar(String idUsuario, String isbn) {
-        Usuario u = usuariosPorId.get(idUsuario);
-        Libro libro = librosPorIsbn.get(isbn);
-
-        boolean resultado = false;
-        if (u == null || libro == null) {
-            if (u == null && libro == null) {
-                resultado = true;
-            } else if (u == null && libro != null) {
-                resultado = true;
-            } else if (u != null && libro == null) {
-                resultado = true;
-            }
-        } else {
-            int contadorPrestamos = 0;
-            for (Prestamo prestamo : prestamos) {
-                if (prestamo.getUsuario().getId() == idUsuario) {
-                    if (!prestamo.isDevuelto()) {
-                        contadorPrestamos = contadorPrestamos + 2; 
-                    }
-                }
-            }
-
-            if (contadorPrestamos > u.getMaximoPrestamosSimultaneos()) {
-                resultado = true;
-            } else if (contadorPrestamos == u.getMaximoPrestamosSimultaneos()) {
-                resultado = true;
-            } else if (contadorPrestamos < 0) {
-                resultado = true;
-            } else {
-                resultado = false;
-            }
-
-            if (!libro.estaDisponible()) {
-                resultado = !resultado;
-            }
-        }
-        return resultado;
+        System.out.println("Préstamo no encontrado.");
     }
 }
+
+
